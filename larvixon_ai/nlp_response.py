@@ -22,7 +22,7 @@ def get_ai_response(vid_path="GP032995_1.MP4", confidence_lvl=0.3, filename="tes
         if not ret:
             break
 
-        if time.time() - start_time > 10:
+        if time.time() - start_time > 10: 
             break
         
         results = model(frame)
@@ -66,3 +66,5 @@ def get_ai_response(vid_path="GP032995_1.MP4", confidence_lvl=0.3, filename="tes
     fig.write_image(f"plots/{filename}")
         
     return fig
+
+get_ai_response()

@@ -17,7 +17,7 @@ navigation_panel = html.Div(
                                "textAlign": "center", "margin": "10px"},
                         accept="video/*",
                         multiple=False),
-                    dcc.Input(id="confidence-level", placeholder="Confidence Level" ,value="", type="number", style={
+                    dcc.Input(id="confidence-level", placeholder="Confidence Level" ,value="", step=0.01, type="number", style={
                         'width': '80%', 
                         "margin": "10px", 
                         'color': 'black', 
