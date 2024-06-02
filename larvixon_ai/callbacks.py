@@ -8,15 +8,11 @@ import larvixon_ai.nlp_response as nlp
 from moviepy.editor import ImageSequenceClip
 import tempfile
 import os
-import flask
+from flask import Flask, send_from_directory
 
 
 def register_callbacks(app):
     
-    server = app.server
-    @server.route('/video.mp4')
-    def serve_video():
-        return flask.send_from_directory(os.getcwd(), 'video.mp4')
     
 #tworzenie bazy danych ----------------------------------------------------------------------------------------------------------------------------  
     @app.callback(
@@ -62,7 +58,6 @@ def register_callbacks(app):
             
 #wyświetlenie filmiku ---------------------------------------------------------------------------------------------------------------------------- 
     @app.callback(
-        Output('video-panel', 'children'),
         Output('results-table', 'children'),
         Output('graph-panel', 'children'),
         Input('submit-btn', 'n_clicks'),
@@ -81,11 +76,10 @@ def register_callbacks(app):
         if button_id != 'submit-btn':
             raise PreventUpdate
         
-        
-        response = nlp.get_ai_response(vid_path=filename, confidence_lvl=confidence_level, filename=output_name)
+        response = nlp.get_ai_response(vid_path="videos/"+filename, confidence_lvl=confidence_level, filename=output_name)
         
         #filmik ---
-        video_element = html.Video(src="video.mp4", controls=True, style={"width": "100%"})
+        #video_element = html.Video(src="Larvixon_AI/video.mp4", controls=True, style={"width": "100%"})
 
         #tabeleczka ---
         table_header = [
@@ -105,7 +99,7 @@ def register_callbacks(app):
         result_graph = dcc.Graph(figure=response)
         
         
-        return video_element, table, result_graph    
+        return table, result_graph    
     
     
 

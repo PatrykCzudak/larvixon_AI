@@ -5,9 +5,10 @@ import base64
 import matplotlib as plt
 import time
 import plotly.graph_objs as go
+import os
 
-def get_ai_response(vid_path="GP032995_1.MP4", confidence_lvl=0.3, filename="test.png"):
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path='/mnt/c/Wojtek_larwixon/yolov5/runs/train/exp14/weights/best.pt')
+def get_ai_response(vid_path="videos/GP032995_1.MP4", confidence_lvl=0.3, filename="test.png"):
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path=os.getcwd() + '/yolov5/runs/train/exp14/weights/best.pt')
 
     cap = cv2.VideoCapture(vid_path)
     
@@ -22,7 +23,7 @@ def get_ai_response(vid_path="GP032995_1.MP4", confidence_lvl=0.3, filename="tes
         if not ret:
             break
 
-        if time.time() - start_time > 10: 
+        if time.time() - start_time > 120:
             break
         
         results = model(frame)
@@ -67,4 +68,3 @@ def get_ai_response(vid_path="GP032995_1.MP4", confidence_lvl=0.3, filename="tes
         
     return fig
 
-get_ai_response()
